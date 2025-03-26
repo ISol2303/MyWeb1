@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -62,6 +63,11 @@ public class loginServlet extends HttpServlet {
 		 if ("admin".equals(username) && "123456".equals(password)) {
 		        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Dashboard.jsp");
 		        requestDispatcher.forward(request, response);// Thay "dashboard.jsp" bằng URL thực tế
+		        Cookie ckUsername = new Cookie("username", username);
+		        Cookie ckLoginDate = new Cookie("loginDate",System.currentTimeMillis()+"");
+		        
+		        response.addCookie(ckUsername);
+		        response.addCookie(ckLoginDate);
 		    } else {
 		    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp"); 
 		    	 requestDispatcher.forward(request, response);// Thêm tham số lỗi vào URL
